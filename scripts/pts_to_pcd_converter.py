@@ -71,8 +71,8 @@ class PTS2PCDConverter(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    pts_file = '/home/simson/simson_ws/CMU_Capstone_Project/faro_mapping/data/V3/FARO_data_3.pts'  # Update this
-    pcd_save_path = '/home/simson/simson_ws/CMU_Capstone_Project/faro_mapping/data/V3/FARO_data_3.pcd'  # Update this
+    pts_file = '/home/simson/simson_ws/CMU_Capstone_Project/faro_mapping/data/FARO_Scan_data.pts'  # Update this
+    pcd_save_path = '/home/simson/simson_ws/CMU_Capstone_Project/faro_mapping/data/FARO_Scan_data.pcd'  # Update this
     node = PTS2PCDConverter(pts_file, pcd_save_path)
     rclpy.shutdown()
 

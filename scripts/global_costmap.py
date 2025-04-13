@@ -11,18 +11,18 @@ from geometry_msgs.msg import Pose, Point, Quaternion
 from rclpy.qos import QoSProfile, QoSDurabilityPolicy
 
 # Parameters
-pcd_file = "/home/simson/simson_ws/CMU_Capstone_Project/faro_mapping/data/V3/FARO_data_3.pcd"
+pcd_file = "/home/simson/simson_ws/CMU_Capstone_Project/faro_mapping/data/FARO_Scan_data.pcd"
 resolution = 0.01  # Grid resolution in meters
 obstacle_threshold_below = -0.03 #-0.03
 obstacle_threshold_above = 0.05 # 0.026
 map_size = (750, 700)
 
 # Define offsets
-x_offset = 3.6#7
-y_offset = 3.4#4
+x_offset = -3.6#7
+y_offset = -3.4#4
 
 # Define rotation angle in degrees and convert to radians
-theta_degrees = -1  # Example: 30-degree rotation
+theta_degrees = 180  # Example: 30-degree rotation
 theta = np.radians(theta_degrees)
 
 # Rotation matrix for 2D rotation around Z-axis
