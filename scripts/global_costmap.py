@@ -13,8 +13,8 @@ from rclpy.qos import QoSProfile, QoSDurabilityPolicy
 # Parameters
 pcd_file = "/home/simson/simson_ws/CMU_Capstone_Project/faro_mapping/data/FARO_Scan_data.pcd"
 resolution = 0.01  # Grid resolution in meters
-obstacle_threshold_below = -0.03 #-0.03
-obstacle_threshold_above = 0.05 # 0.026
+obstacle_threshold_below = -0.5 #-0.03
+obstacle_threshold_above = 0.5 # 0.05
 map_size = (750, 700)
 
 # Define offsets
