@@ -3,12 +3,9 @@ import matplotlib.pyplot as plt
 import scipy.ndimage as ndi
 import cv2
 
-# Function to calculate centroids of gradable craters
 def calculate_centroids(image_path):
-    # Load the PGM image in grayscale
     costmap = plt.imread(image_path)
 
-    # Ensure grayscale normalization (some PGM files are in [0, 255] and others in [0, 1])
     if costmap.max() > 1:
         costmap = costmap / 255.0  # Normalize to range [0,1]
 
@@ -53,7 +50,7 @@ def calculate_centroids(image_path):
         world_crater_centroids = (crater_centroids) * resolution  # No need for origin correction as (0, 0) is the origin now
 
         # Print centroid coordinates for large craters
-        print("Centroids of Large Craters (World Coordinates):")
+        print("Centroids of Craters (World Coordinates):")
         for i, (wx, wy) in enumerate(world_crater_centroids):
             print(f"Crater {i+1}: X = {wx:.3f} m, Y = {wy:.3f} m")
         
@@ -108,6 +105,8 @@ def calculate_diameters_and_visualize(image_path, crater_centroids, resolution):
         
         return radius  # Return the smallest radius found
 
+    print("\n")
+    print("Gradable Craters Diameter and Location")
     # Draw circles and calculate diameters
     for i, (x, y) in enumerate(crater_centroids):
         # Find the radius for the current centroid
@@ -120,15 +119,18 @@ def calculate_diameters_and_visualize(image_path, crater_centroids, resolution):
         diameter_meters = 2 * radius_meters
         
         # Print the diameter in meters for all craters
-        print(f"Crater C{i+1}: Diameter = {diameter_meters:.3f} meters")
         
         # Convert centroid coordinates to meters
         x_meters = x * resolution
         y_meters = y * resolution
         
         # Print centroid coordinates in meters only if diameter is below 0.3 meters
-        if diameter_meters < 0.35:
-            print(f"  Centroid of Crater C{i+1}: X = {x_meters:.3f} m, Y = {y_meters:.3f} m")
+        if diameter_meters < 0.5:
+            # print(f"Crater C{i+1}: Diameter = {diameter_meters:.3f} meters")
+            # print(f"  Centroid of Crater C{i+1}: X = {x_meters:.3f} m, Y = {y_meters:.3f} m")
+            print(f"Crater C{i+1}:")
+            print(f"- Diameter = {diameter_meters:.3f} meters")
+            print(f"- Centroid: X = {x_meters:.3f} m, Y = {y_meters:.3f} m")
         
         # Draw the circle on the image (in pixels)
         cv2.circle(output_image, (int(x), int(y)), radius_pixels, (0, 255, 0), 2)  # Green circle with thickness 2
@@ -145,8 +147,8 @@ def calculate_diameters_and_visualize(image_path, crater_centroids, resolution):
     plt.show()
 
 # Paths to the images
-image_path_1 = "/home/simson/simson_ws/CMU_Capstone_Project/Lunar_ROADSTER_ws/src/mapping/costmap/V2/gradable_craters.pgm"
-image_path_2 = "/home/simson/simson_ws/CMU_Capstone_Project/Lunar_ROADSTER_ws/src/mapping/costmap/V2/gradable_craters_diameter.pgm"
+image_path_1 = "/home/simson/CMU/MRSD_Capstone_Project/faro_mapping/costmap/global_costmap_crater_center.pgm"
+image_path_2 = "/home/simson/CMU/MRSD_Capstone_Project/faro_mapping/costmap/global_costmap_crater_rim.pgm"
 
 # Step 1: Calculate centroids from the first image
 crater_centroids, resolution = calculate_centroids(image_path_1)

@@ -11,18 +11,18 @@ from geometry_msgs.msg import Pose, Point, Quaternion
 from rclpy.qos import QoSProfile, QoSDurabilityPolicy
 
 # Parameters
-pcd_file = "/home/simson/simson_ws/CMU_Capstone_Project/Lunar_ROADSTER_ws/src/mapping/data/V2/FARO_data_2.pcd"
-resolution = 0.01  # Grid resolution in meters
+pcd_file = "/home/simson/CMU/MRSD_Capstone_Project/faro_mapping/data/moon_yard_scan.pcd"
+resolution = 0.01
 # obstacle_threshold_below = -0.03 #-0.03
 obstacle_threshold_above = 0.02 # 0.03
 map_size = (750, 700)
 
 # Define offsets
-x_offset = 3.3#7
-y_offset = 0.1#4
+x_offset = 3.3 #7
+y_offset = 0.1 #4
 
 # Define rotation angle in degrees and convert to radians
-theta_degrees = -134  # Example: 30-degree rotation
+theta_degrees = -134 
 theta = np.radians(theta_degrees)
 
 # Rotation matrix for 2D rotation around Z-axis
@@ -35,8 +35,8 @@ def load_pcd(file):
     pcd = o3d.io.read_point_cloud(file)
     points = np.asarray(pcd.points)
     points = points @ R.T 
-    points[:, 0] -= x_offset  # Adjust X
-    points[:, 1] -= y_offset  # Adjust Y
+    points[:, 0] -= x_offset
+    points[:, 1] -= y_offset
     return points
 
 # Fit a plane using RANSAC
@@ -71,7 +71,7 @@ class CostmapPublisher(Node):
         super().__init__('costmap_publisher')
         qos_profile = QoSProfile(
             depth=1,
-            durability=QoSDurabilityPolicy.TRANSIENT_LOCAL  # Ensure latched behavior
+            durability=QoSDurabilityPolicy.TRANSIENT_LOCAL
         )
 
         self.publisher_ = self.create_publisher(OccupancyGrid, '/map', qos_profile)

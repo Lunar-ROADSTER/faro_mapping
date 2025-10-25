@@ -1,4 +1,4 @@
-image: gradable_craters_diameter.pgm
+image: svd_map.pgm
 mode: trinary
 resolution: 0.01
 origin: [0, 0, 0]
